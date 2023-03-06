@@ -3,17 +3,18 @@ import { useReducer } from "react";
 import DigitButton from "./components/DigitButton";
 import OperationButton from './components/OperationButton';
 import { reducer } from "./reducer";
+import {CLEAR, DELETE_DIGIT} from './action'
 
 function App() {
   const [{currentOperand, previousOperand, operation}, dispatch] = useReducer(reducer, {});
   return (
     <div className="calculator">
       <div className="output">
-        <div className="previous-operand">123 x</div>
-        <div className="current-operand">1231231</div>
+        <div className="previous-operand">{previousOperand} {operation}</div>
+        <div className="current-operand">{currentOperand}</div>
       </div>
-      <button className="span-two">AC</button>
-      <button>DEL</button>
+      <button className="span-two" onClick={() => dispatch({ type: CLEAR})}>AC</button>
+      <button onClick={() => dispatch({ type: DELETE_DIGIT})}>DEL</button>
       <OperationButton operation="÷" dispatch={dispatch}/>
       <DigitButton digit='1' dispatch={dispatch}/>
       <DigitButton digit='2' dispatch={dispatch}/>
